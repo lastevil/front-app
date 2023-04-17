@@ -1,0 +1,9 @@
+.newBody {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.pages {
+  flex-grow: 1;
+  align-items: 100%;
+}

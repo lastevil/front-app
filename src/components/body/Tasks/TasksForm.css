@@ -1,0 +1,9 @@
+.tasks_categorys {
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  background-color: rgb(255, 255, 255);
+  min-width: 220px;
+  /* border-bottom: 1px solid black; */
+  gap: 5px;
+}

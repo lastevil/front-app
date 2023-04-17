@@ -1,0 +1,93 @@
+.newHeader {
+  background-color: aqua;
+}
+
+.header__aroun {
+  display: flex;
+  justify-content: space-between;
+}
+.logoffbtn {
+  background-color: #a0a9cd;
+  color: white;
+  padding: 10px 15px;
+  margin: 4px 0;
+  border: none;
+  cursor: pointer;
+  opacity: 0.9;
+  border-radius: 10px;
+}
+
+.logoffbtn:hover {
+  background-color: #5a74df;
+  color: white;
+  padding: 10px 15px;
+  margin: 4px 0;
+  border: none;
+  cursor: pointer;
+  opacity: 0.9;
+  border-radius: 10px;
+}
+
+.container_header {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.bar1 {
+  width: 35px;
+  height: 5px;
+  background-color: #333;
+  margin: 10px 0;
+  transition: 0.4s;
+  transform: translate(0, 8px) rotate(-45deg);
+}
+
+.bar2 {
+  opacity: 0;
+}
+
+.bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: #333;
+  margin: 10px 0;
+  transition: 0.4s;
+  transform: translate(0, -8px) rotate(45deg);
+}
+
+.bar1:hover {
+  width: 35px;
+  height: 5px;
+  background-color: #a23333;
+  margin: 10px 0;
+  transition: 0.4s;
+  transform: translate(0, 8px) rotate(-45deg);
+}
+
+.bar3:hover {
+  width: 35px;
+  height: 5px;
+  background-color: #a23333;
+  margin: 10px 0;
+  transition: 0.4s;
+  transform: translate(0, -8px) rotate(45deg);
+}
+
+.bar1_change,
+.bar2_change,
+.bar3_change {
+  width: 35px;
+  height: 5px;
+  background-color: #191818;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+.bar1_change:hover,
+.bar2_change:hover,
+.bar3_change:hover {
+  width: 35px;
+  height: 5px;
+  background-color: #a23333;
+  margin: 6px 0;
+  transition: 0.4s;
+}

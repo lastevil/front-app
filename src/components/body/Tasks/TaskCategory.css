@@ -1,0 +1,17 @@
+.taskCategoryItem {
+  padding-left: 20px;
+  padding: 4px;
+}
+.taskCategoryItem:hover {
+  padding-left: 20px;
+  padding: 4px;
+  border-bottom: 4px solid rgb(108, 166, 0);
+  margin-bottom: 4px;
+  /* clip-path: inset(0px 0px -3px 0px); */
+  cursor: pointer;
+}
+
+.taskCategoryItem:checked {
+  padding: 4px;
+  background-color: rgb(159, 159, 159);
+}
