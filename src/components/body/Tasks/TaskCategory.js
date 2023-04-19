@@ -1,11 +1,17 @@
 import "./TaskCategory.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 function TaskCategory(props) {
   var [usedClass, setUsedClass] = useState(props.classLable);
+  useEffect(() => {
+    if (props.usedTask === props.lable) {
+      setUsedClass("taskCategoryItemClicked");
+    } else {
+      setUsedClass("taskCategoryItem");
+    }
+  }, [props.usedTask]);
 
   function ClickedItem() {
-    setUsedClass("taskCategoryItemClicked");
-    props.setClass("taskCategoryItem");
+    props.taskCategory(props.lable);
   }
 
   return (

@@ -7,3 +7,14 @@
   /* border-bottom: 1px solid black; */
   gap: 5px;
 }
+
+.task_body {
+  padding: 0px 3px 0px 3px;
+}
+
+.filter {
+  display: flex;
+  justify-content: right;
+  gap: 3px;
+  margin: 2px 0px 2px 0px;
+}

@@ -147,7 +147,7 @@ function Registration(props) {
             Register
           </button>
           <button className="cncisterbtn" onClick={toLogin}>
-            Cancle
+            Cancel
           </button>
         </div>
       </div>

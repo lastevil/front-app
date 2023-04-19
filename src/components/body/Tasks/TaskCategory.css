@@ -5,13 +5,15 @@
 .taskCategoryItem:hover {
   padding-left: 20px;
   padding: 4px;
-  border-bottom: 4px solid rgb(108, 166, 0);
-  margin-bottom: 4px;
+  border-bottom: 3px solid rgb(108, 166, 0);
+  margin-bottom: -3px;
   /* clip-path: inset(0px 0px -3px 0px); */
   cursor: pointer;
 }
 
-.taskCategoryItem:checked {
+.taskCategoryItemClicked {
+  border-radius: 10px;
+  padding-left: 20px;
   padding: 4px;
-  background-color: rgb(159, 159, 159);
+  background-color: rgb(160, 157, 157);
 }
