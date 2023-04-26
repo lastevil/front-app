@@ -9,7 +9,7 @@ function App() {
   var [isVisible, setVisible] = useState(true);
   var [toRegistrate, setToRegistrate] = useState(false);
   var [token, setToken] = useState(null);
-
+  var [lang, setLang] = useState("rus");
   function setVisibleMenu() {
     setVisible(!isVisible);
   }
@@ -18,19 +18,44 @@ function App() {
     setToRegistrate(reg);
   }
 
+  function changeLang(language) {
+    setLang(language);
+  }
+
   function TokenHandler(respToken) {
     setToken(respToken);
-    respToken !== "" && localStorage.setItem("token", respToken.token);
-    (respToken === "") | (respToken === null) && localStorage.clear();
-    var sub = [];
-    (respToken !== "") | (respToken === null) &&
-      (sub = JSON.parse(
+    if (respToken === "") {
+      localStorage.clear();
+    } else {
+      respToken !== "" && localStorage.setItem("token", respToken.token);
+      var sub = [];
+      sub = JSON.parse(
         Buffer.from(respToken.token.split(".")[1], "base64")
-      ).roles);
-    localStorage.setItem("roles", sub);
-    //Получить список меню из токена.
-    var arrItem = ["Tasks", "Chat", "Analytic", "Admin Panel", "Profile"];
-    localStorage.setItem("menuItems", arrItem);
+      ).roles;
+      localStorage.setItem("roles", sub);
+      console.log(sub);
+      var arrItem;
+      if (sub.includes("ROLE_LOCAL_ADMIN")) {
+        if (lang === "rus") arrItem = ["Панель администратора"];
+        if (lang === "eng") arrItem = ["Admin Panel"];
+      } else if (sub.includes("ROLE_ADMIN")) {
+        if (lang === "rus")
+          arrItem = [
+            "Задачи",
+            "Чат",
+            "Аналитика",
+            "Панель администратора",
+            "Мой профиль",
+          ];
+        if (lang === "eng")
+          arrItem = ["Tasks", "Chat", "Analytic", "Admin Panel", "Profile"];
+      } else {
+        if (lang === "rus")
+          arrItem = ["Задачи", "Чат", "Аналитика", "Мой профиль"];
+        if (lang === "eng") arrItem = ["Tasks", "Chat", "Analytic", "Profile"];
+      }
+      localStorage.setItem("menuItems", arrItem);
+    }
   }
 
   return (

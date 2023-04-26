@@ -1,3 +1,4 @@
+import Categorys from "../Categorys";
 import TaskCategory from "./TaskCategory";
 import TaskContent from "./TaskContent";
 import TaskFilter from "./TaskFilter";
@@ -5,22 +6,22 @@ import "./TasksForm.css";
 import React, { useState } from "react";
 function TasksForm(props) {
   const categoryList = [
-    "My tasks",
-    "Department tasks",
-    "Incoming tasks",
-    "Sended tasks",
+    "Мои задачи",
+    "Задачи отдела",
+    "Новые задачи",
+    "Мои заявки",
   ];
 
   const statuses = [
-    "BACKLOG",
-    "IN_PROGRESS",
-    "DONE",
-    "ACCEPTED",
-    "DELETED",
-    "OVERDUE",
-    "THREE_DAYS_LEFT",
-    "TWO_DAYS_LEFT",
-    "TODAY_LEFT",
+    "Запланировано",
+    "В работе",
+    "Выполнено",
+    "Принято",
+    "Удалено",
+    "Просрочено",
+    "Осталось 3 дня",
+    "Осталось 2 дня",
+    "Истечет сегодня",
   ];
 
   var [taskLable, setTaskLable] = useState(categoryList[0]);
@@ -38,7 +39,7 @@ function TasksForm(props) {
 
   return (
     <div className="task_body">
-      <div className="tasks_categorys">
+      <Categorys>
         {categoryList.map((category) => (
           <TaskCategory
             key={category}
@@ -47,12 +48,17 @@ function TasksForm(props) {
             taskCategory={setTaskCategory}
           />
         ))}
-      </div>
+      </Categorys>
+
       <div className="filter">
         <TaskFilter statusList={statuses} setFilter={setStatusFilter} />
       </div>
       <div className="task_content">
-        <TaskContent task={taskLable} status={taskStatus} />
+        <TaskContent
+          task={taskLable}
+          status={taskStatus}
+          categoryList={categoryList}
+        />
       </div>
     </div>
   );
