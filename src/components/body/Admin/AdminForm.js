@@ -1,20 +1,18 @@
 import Categorys from "../Categorys";
 import AdminBar from "./AdminBar";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import UserActivation from "./UserActivation";
 import DepartmentsControl from "./DepartmentsControl";
 import UserDepartment from "./UserDepartment";
 
 function AdminForm(props) {
-  const categoryListRus = [
-    "Активация пользователей",
-    "Департаменты",
-    "Права пользователей",
-  ];
+  var categoryList = [];
 
-  const categoryListEng = ["User Activation", "Departments", "User roles"];
-  //добавить переключение языка
-  var [categoryList, setCategoryList] = useState(categoryListRus);
+  if (localStorage.getItem("language") === "rus") {
+    categoryList = ["Пользователи", "Департаменты", "Права"];
+  } else {
+    categoryList = ["Users", "Departments", "Roles"];
+  }
 
   var [currentCategory, setCurrentCategory] = useState(categoryList[0]);
 
@@ -34,9 +32,9 @@ function AdminForm(props) {
           />
         ))}
       </Categorys>
-      {currentCategory == categoryList[0] && <UserActivation />}
-      {currentCategory == categoryList[1] && <DepartmentsControl />}
-      {currentCategory == categoryList[2] && <UserDepartment />}
+      {currentCategory === categoryList[0] && <UserActivation />}
+      {currentCategory === categoryList[1] && <DepartmentsControl />}
+      {currentCategory === categoryList[2] && <UserDepartment />}
     </div>
   );
 }

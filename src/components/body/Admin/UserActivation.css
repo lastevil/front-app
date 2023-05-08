@@ -1,0 +1,6 @@
+.user-form-body {
+  display: flexbox;
+}
+.select_filter {
+  justify-content: right;
+}

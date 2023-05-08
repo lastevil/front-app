@@ -4,12 +4,12 @@ import ReactModal from "react-modal";
 
 function LoginForm(props) {
   var [password, setPassword] = useState("");
-  var [email, setEmail] = useState("");
+  var [login, setLogin] = useState("");
   var [resp, setResp] = useState("");
   var [showModal, setShowModal] = useState(false);
 
   function EmailHandler(event) {
-    setEmail(event.target.value);
+    setLogin(event.target.value);
   }
   function PasswordHandler(event) {
     setPassword(event.target.value);
@@ -21,7 +21,7 @@ function LoginForm(props) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        email: email,
+        login: login,
         password: password,
       }),
     };
@@ -41,12 +41,12 @@ function LoginForm(props) {
         } else return data;
       })
       .then((token) => props.setLogin(token));
-    setEmail("");
+    setLogin("");
     setPassword("");
   }
 
   function toRegistration() {
-    setEmail("");
+    setLogin("");
     setPassword("");
     props.reg(true);
   }
@@ -65,14 +65,14 @@ function LoginForm(props) {
         <h3 align="center">Login</h3>
 
         <label htmlFor="email">
-          <b>Email</b>
+          <b>Email or Username</b>
         </label>
         <input
           type="text"
-          placeholder="Enter Email"
+          placeholder="Enter Email or Username"
           name="email"
           id="email"
-          value={email}
+          value={login}
           onChange={EmailHandler}
           required
         />

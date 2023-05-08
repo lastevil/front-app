@@ -3,6 +3,7 @@ import PasswordChecklist from "react-password-checklist";
 import "./Registration.css";
 
 function Registration(props) {
+  var [login, setLogin] = useState("");
   var [firstName, setFirstName] = useState("");
   var [lastName, setLastName] = useState("");
   var [password, setPassword] = useState("");
@@ -17,6 +18,7 @@ function Registration(props) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        login: login,
         firstName: firstName,
         lastName: lastName,
         email: email,
@@ -44,7 +46,9 @@ function Registration(props) {
     setRepPassword("");
     props.reg(false);
   }
-
+  function LoginHandler(event) {
+    setLogin(event.target.value);
+  }
   function FirstNameHandler(event) {
     setFirstName(event.target.value);
   }
@@ -65,6 +69,19 @@ function Registration(props) {
     <form onSubmit={Registr}>
       <div className="container_registration">
         <h3 align="center">Register</h3>
+
+        <label htmlFor="login">
+          <b>Login</b>
+        </label>
+        <input
+          type="text"
+          placeholder="Enter your Login"
+          name="login"
+          id="login"
+          value={login}
+          onChange={LoginHandler}
+          required
+        />
 
         <label htmlFor="first-name">
           <b>First Name</b>

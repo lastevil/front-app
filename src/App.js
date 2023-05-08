@@ -10,6 +10,7 @@ function App() {
   var [toRegistrate, setToRegistrate] = useState(false);
   var [token, setToken] = useState(null);
   var [lang, setLang] = useState("rus");
+  localStorage.setItem("language", lang);
   function setVisibleMenu() {
     setVisible(!isVisible);
   }
@@ -36,8 +37,10 @@ function App() {
       console.log(sub);
       var arrItem;
       if (sub.includes("ROLE_LOCAL_ADMIN")) {
-        if (lang === "rus") arrItem = ["Панель администратора"];
-        if (lang === "eng") arrItem = ["Admin Panel"];
+        if (localStorage.getItem("language") === "rus")
+          arrItem = ["Панель администратора"];
+        if (localStorage.getItem("language") === "eng")
+          arrItem = ["Admin Panel"];
       } else if (sub.includes("ROLE_ADMIN")) {
         if (lang === "rus")
           arrItem = [
@@ -47,12 +50,13 @@ function App() {
             "Панель администратора",
             "Мой профиль",
           ];
-        if (lang === "eng")
+        if (localStorage.getItem("language") === "eng")
           arrItem = ["Tasks", "Chat", "Analytic", "Admin Panel", "Profile"];
       } else {
-        if (lang === "rus")
+        if (localStorage.getItem("language") === "rus")
           arrItem = ["Задачи", "Чат", "Аналитика", "Мой профиль"];
-        if (lang === "eng") arrItem = ["Tasks", "Chat", "Analytic", "Profile"];
+        if (localStorage.getItem("language") === "eng")
+          arrItem = ["Tasks", "Chat", "Analytic", "Profile"];
       }
       localStorage.setItem("menuItems", arrItem);
     }
