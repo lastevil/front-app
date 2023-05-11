@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Card from "../Card";
 import SendRequest from "../../SendRequest";
 import UserCard from "./UserCard";
 import "./UserActivation.css";
 
 function UserActivation(props) {
-  const requestGetOptions = {
+  const requestGetOptions = useRef();
+  requestGetOptions.current = {
     method: "Get",
     headers: {
       Accept: "application/json",
@@ -13,18 +14,17 @@ function UserActivation(props) {
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
   };
-  var url;
-
-  var optionList;
+  var url = useRef("");
+  var optionList = useRef([]);
 
   if (localStorage.getItem("language") === "rus") {
-    optionList = ["все", "активные", "не активные"];
+    optionList.current = ["все", "активные", "не активные"];
   } else {
-    optionList = ["all", "active", "not active"];
+    optionList.current = ["all", "active", "not active"];
   }
 
   var [userList, setUserList] = useState([]);
-  var [filter, setFilter] = useState(optionList[0]);
+  var [filter, setFilter] = useState(optionList.current[0]);
 
   function selectHeader(event) {
     event.preventDefault();
@@ -32,17 +32,22 @@ function UserActivation(props) {
   }
 
   useEffect(() => {
-    if (filter === optionList[0]) {
-      url = "http://localhost:8701/auth/api/v1/users";
-      SendRequest(requestGetOptions, url).then((result) => setUserList(result));
+    if (filter === optionList.current[0]) {
+      url.current = "/auth/api/v1/users";
+      SendRequest(requestGetOptions.current, url.current).then((result) =>
+        setUserList(result)
+      );
     }
-    if (filter === optionList[1]) {
-      url = "http://localhost:8701/auth/api/v1/users/active";
-      SendRequest(requestGetOptions, url).then((result) => setUserList(result));
-    }
-    if (filter === optionList[2]) {
-      url = "http://localhost:8701/auth/api/v1/users/not_active";
-      SendRequest(requestGetOptions, url).then((result) => setUserList(result));
+    if (filter === optionList.current[1]) {
+      url.current = "/auth/api/v1/users/active";
+      SendRequest(requestGetOptions.current, url.current).then((result) =>
+        setUserList(result)
+      );
+    } else {
+      url.current = "/auth/api/v1/users/not_active";
+      SendRequest(requestGetOptions.current, url.current).then((result) =>
+        setUserList(result)
+      );
     }
   }, [filter]);
 
@@ -50,7 +55,7 @@ function UserActivation(props) {
     <div className="user-form-body">
       <div>
         <select className="select_filter" onChange={selectHeader}>
-          {optionList.map((item) => (
+          {optionList.current.map((item) => (
             <option key={item}>{item}</option>
           ))}
         </select>
@@ -58,7 +63,13 @@ function UserActivation(props) {
       <div>
         {userList.length > 0 ? (
           userList.map((user) => (
-            <Card key={user.id}>
+            <Card
+              key={user.id}
+              className={
+                (user.status === "NOT_ACTIVE" && "card-not-active") ||
+                (user.status === "DELETED" && "card-deleted")
+              }
+            >
               <UserCard user={user}></UserCard>
             </Card>
           ))

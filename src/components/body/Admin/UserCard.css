@@ -6,6 +6,7 @@
 }
 .user-info {
   display: flex;
+  padding-top: 2px;
   gap: 5px;
 }
 

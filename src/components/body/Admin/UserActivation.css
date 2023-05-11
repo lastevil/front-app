@@ -4,3 +4,10 @@
 .select_filter {
   justify-content: right;
 }
+
+.card-deleted {
+  background-color: #f65d5d;
+}
+.card-not-active {
+  background-color: #e0cc4d;
+}

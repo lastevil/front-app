@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import "./LoginForm.css";
-import ReactModal from "react-modal";
+import SendRequest from "../SendRequest";
 
 function LoginForm(props) {
   var [password, setPassword] = useState("");
   var [login, setLogin] = useState("");
-  var [resp, setResp] = useState("");
-  var [showModal, setShowModal] = useState(false);
 
   function EmailHandler(event) {
     setLogin(event.target.value);
@@ -25,22 +23,18 @@ function LoginForm(props) {
         password: password,
       }),
     };
-    fetch("http://localhost:8701/auth/api/v1/auth", requestOptions)
-      .then((response) => {
-        if ((response.status >= 500) & !response.ok) {
-          alert(response.statusText);
-          throw new Error(response.statusText);
-        } else return response.json();
+    console.log(
+      SendRequest(requestOptions, "/auth/api/v1/auth").then((result) => {
+        if (result.errorFieldsMessages != null) {
+          alert(result.errorFieldsMessages[0]);
+        }
+        if (result.message != null) {
+          alert(result.message);
+        } else {
+          props.setLogin(result);
+        }
       })
-      .then((data) => {
-        if (data.token == null) {
-          if (data.message != null) {
-            alert(data.message);
-            throw new Error(data.message);
-          }
-        } else return data;
-      })
-      .then((token) => props.setLogin(token));
+    );
     setLogin("");
     setPassword("");
   }
@@ -49,14 +43,6 @@ function LoginForm(props) {
     setLogin("");
     setPassword("");
     props.reg(true);
-  }
-
-  function handleOpenModal(res) {
-    setResp(res);
-    setShowModal(true);
-  }
-  function handleCloseModal() {
-    setShowModal(false);
   }
 
   return (
@@ -76,13 +62,6 @@ function LoginForm(props) {
           onChange={EmailHandler}
           required
         />
-
-        <ReactModal isOpen={showModal} contentLabel="Minimal Modal Example">
-          <div>
-            <div>{resp}</div>
-            <button onClick={handleCloseModal}>Close Modal</button>
-          </div>
-        </ReactModal>
 
         <label htmlFor="psw">
           <b>Password</b>

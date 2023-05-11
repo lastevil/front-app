@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PasswordChecklist from "react-password-checklist";
 import "./Registration.css";
+import SendRequest from "../SendRequest";
 
 function Registration(props) {
   var [login, setLogin] = useState("");
@@ -25,20 +26,18 @@ function Registration(props) {
         password: password,
       }),
     };
-    fetch(
-      "http://localhost:8701/auth/api/v1/registration",
-      requestOptions
-    ).then((response) => {
-      if (!response.ok) {
-        alert(response.statusText);
-        throw new Error(response.statusText);
+    SendRequest(requestOptions, "/auth/api/v1/registration").then((result) => {
+      if (result.message != null) {
+        console.log(result.message);
+        alert(result.message);
       } else {
-        props.reg(false);
+        toLogin();
       }
     });
   }
 
   function toLogin() {
+    setLogin("");
     setFirstName("");
     setLastName("");
     setEmail("");

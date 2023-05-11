@@ -1,21 +1,24 @@
 import "./MyHeader.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function MyHeader(props) {
-  var [visible, setVisible] = useState(props.visib);
   var [bar1, setBar1] = useState("bar1");
   var [bar2, setBar2] = useState("bar2");
   var [bar3, setBar3] = useState("bar3");
 
+  useEffect(() => {
+    if (props.visib === false) {
+      setBar1("bar1_change");
+      setBar2("bar2_change");
+      setBar3("bar3_change");
+    } else {
+      setBar1("bar1");
+      setBar2("bar2");
+      setBar3("bar3");
+    }
+  }, [props.visib]);
+
   function showMenu() {
-    visible == true && setVisible(!visible);
-    visible == true && setBar1("bar1_change");
-    visible == true && setBar2("bar2_change");
-    visible == true && setBar3("bar3_change");
-    visible == false && setVisible(!visible);
-    visible == false && setBar1("bar1");
-    visible == false && setBar2("bar2");
-    visible == false && setBar3("bar3");
     props.visibleMenu();
   }
 

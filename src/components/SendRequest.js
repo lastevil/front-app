@@ -1,22 +1,17 @@
 async function SendRequest(requestOptions, url) {
-  return fetch(url, requestOptions)
+  const server = "http://192.168.10.8:8701";
+
+  return fetch(server + url, requestOptions)
     .then((response) => {
       if ((response.status >= 500) & !response.ok) {
-        localStorage.clear();
-        alert(response.statusText);
+        localStorage.setItem("token", null);
         throw new Error(response.statusText);
       } else {
         return response.json();
       }
     })
     .then((data) => {
-      if (data.message != null) {
-        alert(data.message);
-        localStorage.clear();
-        throw new Error(data.message);
-      } else {
-        return data;
-      }
+      return data;
     });
 }
 export default SendRequest;

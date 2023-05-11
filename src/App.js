@@ -6,11 +6,11 @@ import Registration from "./components/login/Registration";
 import LoginForm from "./components/login/LoginForm";
 
 function App() {
-  var [isVisible, setVisible] = useState(true);
+  var [isVisible, setVisible] = useState(false);
   var [toRegistrate, setToRegistrate] = useState(false);
-  var [token, setToken] = useState(null);
   var [lang, setLang] = useState("rus");
   localStorage.setItem("language", lang);
+
   function setVisibleMenu() {
     setVisible(!isVisible);
   }
@@ -22,11 +22,12 @@ function App() {
   function changeLang(language) {
     setLang(language);
   }
+  //постраться сделать отслеживание localstorage
 
   function TokenHandler(respToken) {
-    setToken(respToken);
     if (respToken === "") {
       localStorage.clear();
+      setVisible(!isVisible);
     } else {
       respToken !== "" && localStorage.setItem("token", respToken.token);
       var sub = [];
@@ -34,7 +35,6 @@ function App() {
         Buffer.from(respToken.token.split(".")[1], "base64")
       ).roles;
       localStorage.setItem("roles", sub);
-      console.log(sub);
       var arrItem;
       if (sub.includes("ROLE_LOCAL_ADMIN")) {
         if (localStorage.getItem("language") === "rus")
@@ -59,6 +59,7 @@ function App() {
           arrItem = ["Tasks", "Chat", "Analytic", "Profile"];
       }
       localStorage.setItem("menuItems", arrItem);
+      setVisible(!isVisible);
     }
   }
 
