@@ -23,18 +23,14 @@ function LoginForm(props) {
         password: password,
       }),
     };
-    console.log(
-      SendRequest(requestOptions, "/auth/api/v1/auth").then((result) => {
-        if (result.errorFieldsMessages != null) {
-          alert(result.errorFieldsMessages[0]);
-        }
-        if (result.message != null) {
-          alert(result.message);
-        } else {
-          props.setLogin(result);
-        }
-      })
-    );
+
+    SendRequest(requestOptions, "/auth/api/v1/auth").then((result) => {
+      if (result.message != null) {
+        alert(result.message);
+      } else {
+        props.setLogin(result);
+      }
+    });
     setLogin("");
     setPassword("");
   }
@@ -76,10 +72,10 @@ function LoginForm(props) {
           required
         />
         <div className="buttonContainer">
-          <button type="submit" className="loginisterbtn">
+          <button type="submit" className="blue-btn">
             Login
           </button>
-          <button className="registerbtn" onClick={toRegistration}>
+          <button className="green-btn" onClick={toRegistration}>
             Registrate
           </button>
         </div>

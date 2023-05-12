@@ -6,6 +6,14 @@ function MyHeader(props) {
   var [bar2, setBar2] = useState("bar2");
   var [bar3, setBar3] = useState("bar3");
 
+  var btnTitle;
+
+  if (localStorage.getItem("language") === "rus") {
+    btnTitle = "Выход";
+  } else {
+    btnTitle = "Exit";
+  }
+
   useEffect(() => {
     if (props.visib === false) {
       setBar1("bar1_change");
@@ -34,7 +42,7 @@ function MyHeader(props) {
         <div className={bar3}></div>
       </div>
       <button className="logoffbtn" onClick={Logoff}>
-        Выход
+        {btnTitle}
       </button>
     </div>
   );

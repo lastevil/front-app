@@ -1,0 +1,8 @@
+.new-dep-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.inputDef {
+  max-width: 300px;
+}

@@ -43,7 +43,8 @@ function UserActivation(props) {
       SendRequest(requestGetOptions.current, url.current).then((result) =>
         setUserList(result)
       );
-    } else {
+    }
+    if (filter === optionList.current[2]) {
       url.current = "/auth/api/v1/users/not_active";
       SendRequest(requestGetOptions.current, url.current).then((result) =>
         setUserList(result)
@@ -74,7 +75,7 @@ function UserActivation(props) {
             </Card>
           ))
         ) : (
-          <div>Таких пользователей нет</div>
+          <div className="empty-message">Таких пользователей нет</div>
         )}
       </div>
     </div>

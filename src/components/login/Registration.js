@@ -10,7 +10,7 @@ function Registration(props) {
   var [password, setPassword] = useState("");
   var [repPassword, setRepPassword] = useState("");
   var [email, setEmail] = useState("");
-  var [buttonClass, setButtonClass] = useState("registerbtn");
+  var [buttonClass, setButtonClass] = useState("green-btn");
   var [btnEnable, setBtnEnable] = useState(false);
 
   function Registr(event) {
@@ -154,7 +154,7 @@ function Registration(props) {
           onChange={(isValid) => {
             isValid === false && setButtonClass("registerbtn_noactive");
             isValid === false && setBtnEnable(true);
-            isValid === true && setButtonClass("registerbtn");
+            isValid === true && setButtonClass("green-btn");
             isValid === true && setBtnEnable(false);
           }}
         />
@@ -162,7 +162,7 @@ function Registration(props) {
           <button disabled={btnEnable} type="submit" className={buttonClass}>
             Register
           </button>
-          <button className="cncisterbtn" onClick={toLogin}>
+          <button className="red-btn" onClick={toLogin}>
             Cancel
           </button>
         </div>

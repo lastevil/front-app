@@ -22,7 +22,7 @@ function UserCard(props) {
             <div>{props.user.email}</div>
           </div>
           <div className="user-btn">
-            <button onClick={ActiveChangeUserData} className="change-btn">
+            <button onClick={ActiveChangeUserData} className="blue-btn">
               Изменить
             </button>
           </div>
@@ -32,15 +32,13 @@ function UserCard(props) {
       {isChange === true && (
         <div className="user-card-body">
           <div className="user-info">
-            <input value={props.user.firstName} />
-            <input value={props.user.lastName} />
-            <input value={props.user.email} />
-            <input value={props.user.lastName} />
+            <input type="text" defaultValue={props.user.firstName} />
+            <input type="text" defaultValue={props.user.lastName} />
+            <input type="email" defaultValue={props.user.email} />
             <div>{props.user.departmentTitle}</div>
-            <div>{}</div>
           </div>
           <div className="user-btn">
-            <button onClick={ChangeUserData} className="activation-btn">
+            <button onClick={ChangeUserData} className="green-btn">
               Активировать
             </button>
           </div>
