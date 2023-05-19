@@ -17,6 +17,9 @@ async function SendRequest(requestOptions, url) {
 
   checkMes = dataTest.then((data) => {
     if (errorMessage != null) {
+      if (errorMessage.code >= 500) {
+        localStorage.removeItem("token");
+      }
       if (data.message != null) {
         return data;
       }

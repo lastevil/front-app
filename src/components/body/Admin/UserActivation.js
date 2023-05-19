@@ -25,6 +25,7 @@ function UserActivation(props) {
 
   var [userList, setUserList] = useState([]);
   var [filter, setFilter] = useState(optionList.current[0]);
+  var [isChange, setIsChange] = useState(true);
 
   function selectHeader(event) {
     event.preventDefault();
@@ -34,23 +35,39 @@ function UserActivation(props) {
   useEffect(() => {
     if (filter === optionList.current[0]) {
       url.current = "/auth/api/v1/users";
-      SendRequest(requestGetOptions.current, url.current).then((result) =>
-        setUserList(result)
-      );
+      SendRequest(requestGetOptions.current, url.current).then((result) => {
+        if (result.message != null) {
+          props.errorWindow(result.message);
+        } else {
+          setUserList(result);
+        }
+      });
     }
     if (filter === optionList.current[1]) {
       url.current = "/auth/api/v1/users/active";
-      SendRequest(requestGetOptions.current, url.current).then((result) =>
-        setUserList(result)
-      );
+      SendRequest(requestGetOptions.current, url.current).then((result) => {
+        if (result.message != null) {
+          props.errorWindow(result.message);
+        } else {
+          setUserList(result);
+        }
+      });
     }
     if (filter === optionList.current[2]) {
       url.current = "/auth/api/v1/users/not_active";
-      SendRequest(requestGetOptions.current, url.current).then((result) =>
-        setUserList(result)
-      );
+      SendRequest(requestGetOptions.current, url.current).then((result) => {
+        if (result.message != null) {
+          props.errorWindow(result.message);
+        } else {
+          setUserList(result);
+        }
+      });
     }
-  }, [filter]);
+  }, [filter, isChange]);
+
+  function userChangeHandler() {
+    setIsChange(!isChange);
+  }
 
   return (
     <div className="user-form-body">
@@ -71,7 +88,11 @@ function UserActivation(props) {
                 (user.status === "DELETED" && "card-deleted")
               }
             >
-              <UserCard user={user}></UserCard>
+              <UserCard
+                user={user}
+                userChanged={userChangeHandler}
+                errorWindow={props.errorWindow}
+              ></UserCard>
             </Card>
           ))
         ) : (

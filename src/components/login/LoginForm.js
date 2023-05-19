@@ -6,12 +6,14 @@ function LoginForm(props) {
   var [password, setPassword] = useState("");
   var [login, setLogin] = useState("");
 
+  //----------------- Handlers ---------------
   function EmailHandler(event) {
     setLogin(event.target.value);
   }
   function PasswordHandler(event) {
     setPassword(event.target.value);
   }
+  //--------------- Functions ----------------
   function Login(event) {
     event.preventDefault();
 
@@ -26,7 +28,7 @@ function LoginForm(props) {
 
     SendRequest(requestOptions, "/auth/api/v1/auth").then((result) => {
       if (result.message != null) {
-        alert(result.message);
+        props.errorWindow(result.message);
       } else {
         props.setLogin(result);
       }
@@ -42,45 +44,47 @@ function LoginForm(props) {
   }
 
   return (
-    <form onSubmit={Login}>
-      <div className="container_login">
-        <h3 align="center">Login</h3>
+    <div className="form__place">
+      <form onSubmit={Login}>
+        <div className="container_login">
+          <h3 align="center">Login</h3>
 
-        <label htmlFor="email">
-          <b>Email or Username</b>
-        </label>
-        <input
-          type="text"
-          placeholder="Enter Email or Username"
-          name="email"
-          id="email"
-          value={login}
-          onChange={EmailHandler}
-          required
-        />
+          <label htmlFor="email">
+            <b>Email or Login</b>
+          </label>
+          <input
+            type="text"
+            placeholder="Enter Email or Username"
+            name="email"
+            id="email"
+            value={login}
+            onChange={EmailHandler}
+            required
+          />
 
-        <label htmlFor="psw">
-          <b>Password</b>
-        </label>
-        <input
-          type="password"
-          placeholder="Enter Password"
-          name="psw"
-          id="psw"
-          value={password}
-          onChange={PasswordHandler}
-          required
-        />
-        <div className="buttonContainer">
-          <button type="submit" className="blue-btn">
-            Login
-          </button>
-          <button className="green-btn" onClick={toRegistration}>
-            Registrate
-          </button>
+          <label htmlFor="psw">
+            <b>Password</b>
+          </label>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            name="psw"
+            id="psw"
+            value={password}
+            onChange={PasswordHandler}
+            required
+          />
+          <div className="buttonContainer">
+            <button type="submit" className="blue-btn">
+              Login
+            </button>
+            <button className="green-btn" onClick={toRegistration}>
+              Registrate
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
 export default LoginForm;

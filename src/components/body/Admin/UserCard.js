@@ -1,15 +1,43 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./UserCard.css";
+import UserChangeForm from "./UserChangeForm";
 function UserCard(props) {
+  var textData = useRef();
+
+  if (localStorage.getItem("language") === "rus") {
+    textData.current = [
+      "Активировать",
+      "Изменить",
+      "Изменить пароль:",
+      "Данные пользователя:",
+      "Настройка департамента:",
+      "Имя",
+      "Фамилия",
+      "email",
+      "Логин",
+      "Отмена",
+    ];
+  } else {
+    textData.current = [
+      "Activate",
+      "Change",
+      "Change password:",
+      "User data",
+      "Department settings",
+      "First name",
+      "Second name",
+      "email",
+      "login",
+      "Cancle",
+    ];
+  }
+
   var [isChange, setIsChange] = useState(false);
 
-  function ActiveChangeUserData(event) {
-    event.preventDefault();
-    setIsChange(true);
+  function ChangeFormOpen() {
+    setIsChange(!isChange);
   }
-  function ChangeUserData(event) {
-    event.preventDefault();
-  }
+
   //ToDo: Сделать перенос строк для мобильного вида.
   return (
     <div>
@@ -22,27 +50,19 @@ function UserCard(props) {
             <div>{props.user.email}</div>
           </div>
           <div className="user-btn">
-            <button onClick={ActiveChangeUserData} className="blue-btn">
-              Изменить
+            <button onClick={ChangeFormOpen} className="blue-btn">
+              {textData.current[1]}
             </button>
           </div>
         </div>
       )}
-
       {isChange === true && (
-        <div className="user-card-body">
-          <div className="user-info">
-            <input type="text" defaultValue={props.user.firstName} />
-            <input type="text" defaultValue={props.user.lastName} />
-            <input type="email" defaultValue={props.user.email} />
-            <div>{props.user.departmentTitle}</div>
-          </div>
-          <div className="user-btn">
-            <button onClick={ChangeUserData} className="green-btn">
-              Активировать
-            </button>
-          </div>
-        </div>
+        <UserChangeForm
+          errorWindow={props.errorWindow}
+          setIsChange={ChangeFormOpen}
+          user={props.user}
+          textData={textData.current}
+        ></UserChangeForm>
       )}
     </div>
   );

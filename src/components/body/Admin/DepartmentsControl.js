@@ -3,7 +3,7 @@ import SendRequest from "../../SendRequest";
 import Card from "../Card";
 import "./DepartmentsControl.css";
 
-function DepartmentsControl() {
+function DepartmentsControl(props) {
   var depText;
   if (localStorage.getItem("language") === "rus") {
     depText = ["Отделы отсутствуют", "Добавить", "Название отдела"];
@@ -30,8 +30,7 @@ function DepartmentsControl() {
     SendRequest(requestGetOptions.current, "/auth/api/v1/departments").then(
       (result) => {
         if (result.message != null) {
-          console.log(result.message);
-          alert(result.message);
+          props.errorWindow(result.message);
         } else {
           setDepList(result);
         }

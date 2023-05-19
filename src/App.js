@@ -1,14 +1,29 @@
-import MyBody from "./components/body/MyBody";
+import AppBody from "./components/body/AppBody";
 import { Buffer } from "buffer";
 import MyHeader from "./components/MyHeader";
 import React, { useState } from "react";
 import Registration from "./components/login/Registration";
 import LoginForm from "./components/login/LoginForm";
+import { Modal } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 function App() {
   var [isVisible, setVisible] = useState(false);
   var [toRegistrate, setToRegistrate] = useState(false);
   var [lang, setLang] = useState("rus");
+  var [open, setOpen] = useState(false);
+  var [errorMes, setErrorMess] = useState("");
+
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 4,
+  };
   localStorage.setItem("language", lang);
 
   function setVisibleMenu() {
@@ -63,24 +78,62 @@ function App() {
     }
   }
 
+  function ErrorHandler(error) {
+    setErrorMess(error);
+    OpenHandler();
+    if (localStorage.getItem("token") === null) {
+      TokenHandler("");
+    }
+  }
+  function OpenHandler() {
+    setOpen(true);
+  }
+  function CloseHandler() {
+    setOpen(false);
+  }
+
   return (
     <div>
-      {localStorage.getItem("token") === null && toRegistrate === false && (
-        <LoginForm reg={useRegistrationForm} setLogin={TokenHandler} />
+      {(localStorage.getItem("token") === null) & (toRegistrate === false) ? (
+        <LoginForm
+          reg={useRegistrationForm}
+          setLogin={TokenHandler}
+          errorWindow={ErrorHandler}
+        />
+      ) : (
+        <div className="no__display" />
       )}
-      {localStorage.getItem("token") === null && toRegistrate === true && (
-        <Registration reg={useRegistrationForm} />
+      {(localStorage.getItem("token") === null) & (toRegistrate === true) ? (
+        <Registration reg={useRegistrationForm} errorWindow={ErrorHandler} />
+      ) : (
+        <div className="no__display" />
       )}
-      {localStorage.getItem("token") !== null && (
+      {localStorage.getItem("token") !== null ? (
         <div>
           <MyHeader
             visibleMenu={setVisibleMenu}
             visib={isVisible}
             setLogin={TokenHandler}
           />
-          <MyBody vis={isVisible} />
+          <AppBody vis={isVisible} errorWindow={ErrorHandler} />
         </div>
+      ) : (
+        <div className="no__display" />
       )}
+      <Modal
+        keepMounted
+        open={open}
+        onClose={CloseHandler}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={modalStyle} className="modal__style">
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Error:
+          </Typography>
+          <Typography id="modal-modal-description">{errorMes}</Typography>
+        </Box>
+      </Modal>
     </div>
   );
 }

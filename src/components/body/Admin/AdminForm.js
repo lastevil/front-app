@@ -32,9 +32,15 @@ function AdminForm(props) {
           />
         ))}
       </Categorys>
-      {currentCategory === categoryList[0] && <UserActivation />}
-      {currentCategory === categoryList[1] && <DepartmentsControl />}
-      {currentCategory === categoryList[2] && <UserDepartment />}
+      {currentCategory === categoryList[0] && (
+        <UserActivation errorWindow={props.errorWindow} />
+      )}
+      {currentCategory === categoryList[1] && (
+        <DepartmentsControl errorWindow={props.errorWindow} />
+      )}
+      {currentCategory === categoryList[2] && (
+        <UserDepartment errorWindow={props.errorWindow} />
+      )}
     </div>
   );
 }

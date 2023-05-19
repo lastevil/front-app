@@ -21,49 +21,6 @@ form {
   align-items: center;
 }
 
-.registerbtn {
-  background-color: #04aa6d;
-  color: white;
-  padding: 10px 15px;
-  margin: 4px 0;
-  border: none;
-  cursor: pointer;
-  width: 30%;
-  min-width: 85px;
-  opacity: 0.9;
-  border-radius: 10px;
-}
-
-.registerbtn_noactive {
-  background-color: #9f9f9f;
-  color: rgb(0, 0, 0);
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  width: 10%;
-  min-width: 80px;
-  opacity: 0.9;
-  border-radius: 10px;
-  cursor: not-allowed;
-}
-
-.cncisterbtn {
-  background-color: #d15b3a;
-  color: white;
-  padding: 10px 15px;
-  margin: 4px 0;
-  border: none;
-  cursor: pointer;
-  width: 30%;
-  opacity: 0.9;
-  border-radius: 10px;
-}
-
-.registerbtn:hover {
-  opacity: 1;
-  border-radius: 10px;
-}
-
 a {
   color: dodgerblue;
 }
